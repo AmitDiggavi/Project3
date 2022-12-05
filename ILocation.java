@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Interface for the DataWrangler
  */
@@ -6,8 +8,8 @@ public interface ILocation {
 
     String getLocation();
 
-    int getDistance();
+    ArrayList<ILocation> getTargets();
 
-    String getPath();
+    ArrayList<Double> getWeight();
 
 }

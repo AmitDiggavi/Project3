@@ -5,7 +5,7 @@ public interface IBackend {
   /**
    * This method adds an ICity object to the graph
    */
-  public void addCity(ICity city);
+  public void addCity(ILocation city);
 
   /**
    * This method is used to set the current location
@@ -26,7 +26,7 @@ public interface IBackend {
    * 
    * @return the list of all cities
    */
-  public ArrayList<ICity> listCity();
+  public ArrayList<ILocation> listCity();
 
   /**
    * This method is used to set the target location
@@ -48,21 +48,21 @@ public interface IBackend {
    * 
    * @param the city to add as a stop
    */
-  public void addStops(ArrayList<ICity> additonalStops);
+  public void addStops(ArrayList<String> additionalStops);
 
   /**
    * Returns the list of cities added as additional stops
    * 
    * @return the list of cities as stops
    */
-  public ArrayList<ICity> getStops();
+  public ArrayList<String> getStops();
 
   /**
    * Finds the shortest path between a set of cities
    * 
    * @return an array of cities which demonstrates the short path
    */
-  public ArrayList<ICity> calculateRoute();
+  public ArrayList<String> calculateRoute();
 
   /**
    * Finds the distance between the set of cities directly correlated with the calculateRoute()
@@ -70,7 +70,7 @@ public interface IBackend {
    * 
    * @return an array of distances which demonstrates the short path
    */
-  public ArrayList<Integer> calculateRouteDistance();
+  public ArrayList<Double> calculateRouteDistance();
 
   /*
    * Resets the route to null.
@@ -78,3 +78,4 @@ public interface IBackend {
   public void resetRoute();
 
 }
+

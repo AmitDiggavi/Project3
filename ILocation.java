@@ -12,6 +12,4 @@ public interface ILocation {
     ArrayList<ILocation> getTargets();
 
     ArrayList<Double> getWeight();
-
-
 }

@@ -30,4 +30,14 @@ public class Location implements ILocation{
         return null;
     }
     // returning null because we don't really use this.
+
+    public boolean equalsTo(ILocation target)
+    {
+        return this.getLocation().equals(target.getLocation());
+
+    }
+    public String toString()
+    {
+        return this.getLocation();
+    }
 }

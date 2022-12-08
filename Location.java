@@ -3,14 +3,13 @@ import java.util.ArrayList;
 public class Location implements ILocation{
     String name;
     ArrayList<ILocation> targets;
-
     ArrayList<Double> weight;
 
 
-    public Location(String location, ArrayList<ILocation> targets, ArrayList<Double> weight) {
+    public Location(String location) {
         this.name = location;
-        this.targets = targets;
-        this.weight = weight;
+        targets = new ArrayList<>();
+        weight = new ArrayList<>();
     }
 
     @Override
@@ -21,15 +20,14 @@ public class Location implements ILocation{
     @Override
     public ArrayList<ILocation> getTargets()
     {
-        return targets;
+        return null;
     }
-
-
-
+    // returning null because we don't really use this.
 
     @Override
     public ArrayList<Double> getWeight() {
 
-        return weight;
+        return null;
     }
+    // returning null because we don't really use this.
 }

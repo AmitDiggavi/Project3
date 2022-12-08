@@ -1,0 +1,73 @@
+Script started on Wed Dec  7 18:26:15 2022
+Restored session: Wed Dec  7 18:25:54 CST 2022
+[1m[7m%[27m[1m[0m                                                                                ]7;file://MacBook-Pro.local/Users/matthewmoy/cs400/Project3_DW_blue/src[0m[27m[24m[Jmatthewmoy@MacBook-Pro src % [K[?2004h[7mgit status[27m
+[K[A[29C[27mg[27mi[27mt[27m [27ms[27mt[27ma[27mt[27mu[27ms[1B[K[?2004l
+On branch AlgorithmEngineer
+Your branch is up to date with 'origin/AlgorithmEngineer'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+	[31m../.DS_Store[m
+	[31m../.idea/[m
+	[31m../out/[m
+	[31mjunit5.jar[m
+	[31mlog[m
+
+nothing added to commit but untracked files present (use "git add" to track)
+[1m[7m%[27m[1m[0m                                                                                ]7;file://MacBook-Pro.local/Users/matthewmoy/cs400/Project3_DW_blue/src[0m[27m[24m[Jmatthewmoy@MacBook-Pro src % [K[?2004h[7mgit log -1[27m
+[K[A[29C[27mg[27mi[27mt[27m [27ml[27mo[27mg[27m [27m-[27m1[1B[K[?2004l
+[?1h=[33mcommit 833f4ee7a5a341ceffa6df780400c433a8514f6d[m[33m ([m[1;36mHEAD -> [m[1;32mAlgorithmEngineer[m[33m, [m[1;31morig[m [33m[m[33m[m[1;36m[m[1;32m[m[33m[m[1;31min/AlgorithmEngineer[m[33m)[m[m
+Author: Matthew Moy <mgmoy@wisc.edu>[m
+Date:   Wed Dec 7 18:18:58 2022 -0600[m
+[m
+    make makefile[m
+[K[?1l>[1m[7m%[27m[1m[0m                                                                                ]7;file://MacBook-Pro.local/Users/matthewmoy/cs400/Project3_DW_blue/src[0m[27m[24m[Jmatthewmoy@MacBook-Pro src % [K[?2004h[7mmake clean[27m
+[K[A[29C[27mm[27ma[27mk[27me[27m [27mc[27ml[27me[27ma[27mn[1B[K[?2004l
+rm: *.class: No such file or directory
+make: *** [clean] Error 1
+[1m[7m%[27m[1m[0m                                                                                ]7;file://MacBook-Pro.local/Users/matthewmoy/cs400/Project3_DW_blue/src[0m[27m[24m[Jmatthewmoy@MacBook-Pro src % [K[?2004h[7mls[27m
+[K[A[29C[27ml[27ms[1B[K[?2004l
+AlgorithmEngineerTests.java	ILocation.java
+Graph.java			ILocationLoader.java
+GraphADT.java			Makefile
+IBackend.java			junit5.jar
+IFrontend.java			log
+IGraph.java
+[1m[7m%[27m[1m[0m                                                                                ]7;file://MacBook-Pro.local/Users/matthewmoy/cs400/Project3_DW_blue/src[0m[27m[24m[Jmatthewmoy@MacBook-Pro src % [K[?2004h[7mmake runTests[27m
+[K[A[29C[27mm[27ma[27mk[27me[27m [27mr[27mu[27mn[27mT[27me[27ms[27mt[27ms[1B[K[?2004l
+javac -cp .:junit5.jar AlgorithmEngineerTests.java
+java -jar junit5.jar -cp . -c AlgorithmEngineerTests
+
+Thanks for using JUnit! Support its development at https://junit.org/sponsoring
+
+[36m╷[0m
+[36m├─[0m [36mJUnit Jupiter[0m [32m✔[0m
+[36m│  └─[0m [36mAlgorithmEngineerTests[0m [32m✔[0m
+[36m│     ├─[0m [34mtestPathChicagotoRochester()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestPathChicagotoChicago()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestPathCostAtoD()[0m [32m✔[0m
+[36m│     ├─[0m [34mtestPathCostChicagotoBeloit()[0m [32m✔[0m
+[36m│     └─[0m [34mtestNoPath()[0m [32m✔[0m
+[36m└─[0m [36mJUnit Vintage[0m [32m✔[0m
+
+Test run finished after 101 ms
+[         3 containers found      ]
+[         0 containers skipped    ]
+[         3 containers started    ]
+[         0 containers aborted    ]
+[         3 containers successful ]
+[         0 containers failed     ]
+[         5 tests found           ]
+[         0 tests skipped         ]
+[         5 tests started         ]
+[         0 tests aborted         ]
+[         5 tests successful      ]
+[         0 tests failed          ]
+
+[1m[7m%[27m[1m[0m                                                                                ]7;file://MacBook-Pro.local/Users/matthewmoy/cs400/Project3_DW_blue/src[0m[27m[24m[Jmatthewmoy@MacBook-Pro src % [K[?2004h[7mexit[27m[27me[27mx[27mi[27mt[?2004l
+
+Saving session...
+...saving history...truncating history files...
+...completed.
+
+Script done on Wed Dec  7 18:26:55 2022

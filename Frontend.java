@@ -1,16 +1,20 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Frontend class for the MadMapper program.
+ */
 public class Frontend implements IFrontend {
     private final IBackend backend;
     private final ArrayList<String> cityNames;
     private final Scanner scn;
 
-    public static void main(String[] args) {
-        Frontend frontend = new Frontend(new BackendPlaceholder(), new Scanner(System.in));
-        frontend.runCommandLoop();
-    }
-
+    /**
+     * Constructor for the Frontend class.
+     *
+     * @param backend the backend to use
+     * @param scn     the scanner to use
+     */
     public Frontend(IBackend backend, Scanner scn) {
         this.backend = backend;
 
@@ -22,6 +26,9 @@ public class Frontend implements IFrontend {
         this.scn = scn;
     }
 
+    /**
+     * Run the dialog.
+     */
     public void runCommandLoop() {
         System.out.println("Welcome to MadMapper\n"
                 + "—--------------------------------------------------\n");
@@ -29,6 +36,9 @@ public class Frontend implements IFrontend {
         displayMainMenu();
     }
 
+    /**
+     * Display the main menu.
+     */
     public void displayMainMenu() {
         System.out.println("You are in the Main Menu:");
 
@@ -68,6 +78,9 @@ public class Frontend implements IFrontend {
         }
     }
 
+    /**
+     * Display the current itinerary.
+     */
     public void displayCurrentItinerary() {
         String currentCity = backend.getCurrentLocation() == null
                 ? "Unset"
@@ -97,6 +110,9 @@ public class Frontend implements IFrontend {
         displayMainMenu();
     }
 
+    /**
+     * Set the current city.
+     */
     public void setCurrentCity() {
         System.out.println("Enter City:");
         scn.nextLine();
@@ -112,6 +128,9 @@ public class Frontend implements IFrontend {
         displayMainMenu();
     }
 
+    /**
+     * Set the target city.
+     */
     public void setTargetCity() {
         System.out.println("Enter City:");
         scn.nextLine();
@@ -127,6 +146,9 @@ public class Frontend implements IFrontend {
         displayMainMenu();
     }
 
+    /**
+     * Add a stop.
+     */
     public void addStop() {
         System.out.println("Enter City:");
         scn.nextLine();
@@ -144,6 +166,9 @@ public class Frontend implements IFrontend {
         displayMainMenu();
     }
 
+    /**
+     * Calculate the route.
+     */
     public void calculateRoute() {
         System.out.println("The shortest route is:");
         ArrayList<ILocation> route = backend.calculateRoute();
@@ -162,6 +187,9 @@ public class Frontend implements IFrontend {
         displayMainMenu();
     }
 
+    /**
+     * Reset the route.
+     */
     public void resetRoute() {
         backend.resetRoute();
         displayMainMenu();

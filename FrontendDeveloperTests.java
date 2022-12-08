@@ -1,10 +1,16 @@
 import org.junit.jupiter.api.Test;
-
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Tests for the Frontend class.
+ */
 public class FrontendDeveloperTests {
+
+    /**
+     * Tests the main menu method.
+     */
     @Test
     public void testMainMenu() {
         TextUITester uiTester = new TextUITester("7\n");
@@ -31,6 +37,9 @@ public class FrontendDeveloperTests {
         assertEquals(expected, uiTester.checkOutput());
     }
 
+    /**
+     * Tests the list cities method.
+     */
     @Test
     public void testListCities() {
         TextUITester uiTester = new TextUITester("1\n7\n");
@@ -74,6 +83,9 @@ public class FrontendDeveloperTests {
         assertEquals(expected, uiTester.checkOutput());
     }
 
+    /**
+     * Tests the set current city method.
+     */
     @Test
     public void testSetCurrentCity() {
         TextUITester uiTester = new TextUITester("2\nNew York\n7\n");
@@ -113,6 +125,9 @@ public class FrontendDeveloperTests {
         assertEquals(expected, uiTester.checkOutput());
     }
 
+    /**
+     * Tests the set target city method.
+     */
     @Test
     public void testSetTargetCity() {
         TextUITester uiTester = new TextUITester("3\nNew York\n7\n");
@@ -152,6 +167,9 @@ public class FrontendDeveloperTests {
         assertEquals(expected, uiTester.checkOutput());
     }
 
+    /**
+     * Tests the add stop method.
+     */
     @Test
     public void testAddStop() {
         TextUITester uiTester = new TextUITester("2\nSan Francisco\n4\nNew York\n7\n");

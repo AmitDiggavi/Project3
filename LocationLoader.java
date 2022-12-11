@@ -1,5 +1,3 @@
-
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -7,9 +5,9 @@ import java.util.LinkedHashSet;
 import java.util.Scanner;
 
 public class LocationLoader implements ILocationLoader {
-    IDijkstra<ILocation, Double> graph;
+    IGraph<ILocation, Double> graph;
 
-    public LocationLoader(IDijkstra<ILocation, Double> graph)
+    public LocationLoader(IGraph<ILocation, Double> graph)
     {
         this.graph = graph;
     }

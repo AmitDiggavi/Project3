@@ -1,5 +1,6 @@
 
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.util.Scanner;
 
@@ -69,10 +70,27 @@ public class FrontendDeveloperTests {
                 \t 7. Exit
 
                 List of cities:
-                \t1. New York
+                \t1. Appleton
                 \t2. Chicago
-                \t3. Los Angeles
-                \t4. San Francisco
+                \t3. Eau Claire
+                \t4. Green Bay
+                \t5. Janesville
+                \t6. Kenosha
+                \t7. La Crosse
+                \t8. Madison
+                \t9. Middleton
+                \t10. Milwaukee
+                \t11. Minneapolis
+                \t12. Naperville
+                \t13. Oshkosh
+                \t14. Rochester
+                \t15. Rockford
+                \t16. Saint Paul
+                \t17. Springfield
+                \t18. Stevens Point
+                \t19. Waukesha
+                \t20. Whitewater
+                \t21. Wisconsin Dells
 
                 You are in the Main Menu:
                 Current Itinerary: Unset -> Unset
@@ -96,7 +114,7 @@ public class FrontendDeveloperTests {
      */
     @Test
     public void testSetCurrentCity() {
-        TextUITester uiTester = new TextUITester("2\nNew York\n7\n");
+        TextUITester uiTester = new TextUITester("2\nMadison\n7\n");
         Scanner scn = new Scanner(System.in);
         IBackend backend = new Backend();
         IFrontend frontend = new Frontend(backend, scn);
@@ -120,7 +138,7 @@ public class FrontendDeveloperTests {
                 Enter City:
 
                 You are in the Main Menu:
-                Current Itinerary: New York -> Unset
+                Current Itinerary: Madison -> Unset
                 Choose an option:
                 \t 1. List all cities
                 \t 2. Set current city
@@ -141,7 +159,7 @@ public class FrontendDeveloperTests {
      */
     @Test
     public void testSetTargetCity() {
-        TextUITester uiTester = new TextUITester("3\nNew York\n7\n");
+        TextUITester uiTester = new TextUITester("3\nMadison\n7\n");
         Scanner scn = new Scanner(System.in);
         IBackend backend = new Backend();
         IFrontend frontend = new Frontend(backend, scn);
@@ -165,7 +183,7 @@ public class FrontendDeveloperTests {
                 Enter City:
 
                 You are in the Main Menu:
-                Current Itinerary: Unset -> New York
+                Current Itinerary: Unset -> Madison
                 Choose an option:
                 \t 1. List all cities
                 \t 2. Set current city
@@ -186,7 +204,7 @@ public class FrontendDeveloperTests {
      */
     @Test
     public void testAddStop() {
-        TextUITester uiTester = new TextUITester("2\nSan Francisco\n4\nNew York\n7\n");
+        TextUITester uiTester = new TextUITester("2\nMadison\n4\nChicago\n7\n");
         Scanner scn = new Scanner(System.in);
         IBackend backend = new Backend();
         IFrontend frontend = new Frontend(backend, scn);
@@ -210,7 +228,7 @@ public class FrontendDeveloperTests {
                 Enter City:
 
                 You are in the Main Menu:
-                Current Itinerary: San Francisco -> Unset
+                Current Itinerary: Madison -> Unset
                 Choose an option:
                 \t 1. List all cities
                 \t 2. Set current city
@@ -223,7 +241,7 @@ public class FrontendDeveloperTests {
                 Enter City:
 
                 You are in the Main Menu:
-                Current Itinerary: San Francisco -> New York -> Unset
+                Current Itinerary: Madison -> Chicago -> Unset
                 Choose an option:
                 \t 1. List all cities
                 \t 2. Set current city

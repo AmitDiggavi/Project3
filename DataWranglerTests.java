@@ -80,6 +80,7 @@ public class DataWranglerTests {
         } catch (Exception e) {
 
         }
+        System.out.println(graph);
         assertTrue(graph.containsEdge(new Location("Chicago"), new Location("Milwaukee")));
     }
 }

@@ -59,7 +59,12 @@ public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType
      */
     public boolean removeVertex(NodeType data) {
         if(data == null) throw new NullPointerException("Cannot remove null vertex");
-        Vertex removeVertex = vertices.get(data);
+        Vertex removeVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(data)) {
+                removeVertex = v;
+            }
+        }
         if(removeVertex == null) return false; // vertex not found within graph
         // search all vertices for edges targeting removeVertex
         for(Vertex v : vertices.values()) {
@@ -126,8 +131,15 @@ public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType
      */
     public boolean removeEdge(NodeType source, NodeType target) {
         if(source == null || target == null) throw new NullPointerException("Cannot remove edge with null source or target");
-        Vertex sourceVertex = this.vertices.get(source);
-        Vertex targetVertex = this.vertices.get(target);
+        Vertex sourceVertex = null;
+        Vertex targetVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(source)) {
+                sourceVertex = v;
+            } else if (v.data.equals(target)) {
+                targetVertex = v;
+            }
+        }
         if(sourceVertex == null || targetVertex == null) throw new IllegalArgumentException("Cannot remove edge with vertices that do not exist");
         // find edge to remove
         Edge removeEdge = null;
@@ -163,8 +175,15 @@ public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType
      */
     public boolean containsEdge(NodeType source, NodeType target) {
         if(source == null || target == null) throw new NullPointerException("Cannot contain edge adjacent to null data");
-        Vertex sourceVertex = vertices.get(source);
-        Vertex targetVertex = vertices.get(target);
+        Vertex sourceVertex = null;
+        Vertex targetVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(source)) {
+                sourceVertex = v;
+            } else if (v.data.equals(target)) {
+                targetVertex = v;
+            }
+        }
         if(sourceVertex == null) return false;
         for(Edge e : sourceVertex.edgesLeaving)
             if(e.target == targetVertex)
@@ -184,8 +203,15 @@ public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType
      */
     public EdgeType getWeight(NodeType source, NodeType target) {
         if(source == null || target == null) throw new NullPointerException("Cannot contain weighted edge adjacent to null data");
-        Vertex sourceVertex = vertices.get(source);
-        Vertex targetVertex = vertices.get(target);
+        Vertex sourceVertex = null;
+        Vertex targetVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(source)) {
+                sourceVertex = v;
+            } else if (v.data.equals(target)) {
+                targetVertex = v;
+            }
+        }
         if(sourceVertex == null || targetVertex == null) throw new IllegalArgumentException("Cannot retrieve weight of edge between vertices that do not exist");
         for(Edge e : sourceVertex.edgesLeaving)
             if(e.target == targetVertex)
@@ -212,6 +238,16 @@ public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType
      */
     public int getVertexCount() {
         return vertices.size();
+    }
+
+    /**
+     * Return all verticies' data in the graph.
+     */
+    public ArrayList<NodeType> getVertices() {
+        // return the keys of vertices sorted
+        ArrayList<NodeType> sortedKeys = new ArrayList<>(vertices.keySet());
+        sortedKeys.sort(null);
+        return sortedKeys;
     }
 
     /**
@@ -303,17 +339,27 @@ public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType
         }
 
         // Throw NoSuchElementException if either start or end is not in the graph
-        if (vertices.get(start) == null || vertices.get(end) == null){
+        Vertex startVertex = null;
+        Vertex endVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(start)) {
+                startVertex = v;
+            }
+            if (v.data.equals(end)) {
+                endVertex = v;
+            }
+        }
+        if (startVertex == null || endVertex == null){
             throw new NoSuchElementException("no vertex containing start or end can be found");
         }
         // If start and end are the same node return the path
         if (start.equals(end)){
-            return new Path(vertices.get(start));
+            return new Path(startVertex);
         }
 
-        distances.put(vertices.get(start), 0.0);
+        distances.put(startVertex, 0.0);
         PriorityQueue<Path> queue = new PriorityQueue<>();
-        queue.add(new Path(vertices.get(start)));
+        queue.add(new Path(startVertex));
 
         while (!queue.isEmpty()) {
             Path shortestPath = queue.remove();

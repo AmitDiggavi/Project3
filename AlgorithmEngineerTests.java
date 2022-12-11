@@ -6,7 +6,7 @@ import java.util.NoSuchElementException;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AlgorithmEngineerTests {
-    private Graph<String,Integer> graph;
+    private Graph<ILocation,Integer> graph;
 
     /**
      * Instantiate graph.
@@ -15,24 +15,24 @@ public class AlgorithmEngineerTests {
     public void createGraph() {
         graph = new Graph<>();
         // insert vertices A-F
-        graph.insertVertex("Chicago");
-        graph.insertVertex("Madison");
-        graph.insertVertex("Milwaukee");
-        graph.insertVertex("Rochester");
-        graph.insertVertex("Springfield");
-        graph.insertVertex("Beloit");
+        graph.insertVertex(makeLoc("Chicago"));
+        graph.insertVertex(makeLoc("Madison"));
+        graph.insertVertex(makeLoc("Milwaukee"));
+        graph.insertVertex(makeLoc("Rochester"));
+        graph.insertVertex(makeLoc("Springfield"));
+        graph.insertVertex(makeLoc("Beloit"));
         // insert edges
-        graph.insertEdge("Chicago","Madison",60);
-        graph.insertEdge("Chicago","Milwaukee",20);
-        graph.insertEdge("Chicago","Rochester",50);
-        graph.insertEdge("Madison","Springfield",10);
-        graph.insertEdge("Madison","Milwaukee",20);
-        graph.insertEdge("Milwaukee","Madison",30);
-        graph.insertEdge("Milwaukee","Beloit",10);
-        graph.insertEdge("Rochester","Springfield",30);
-        graph.insertEdge("Springfield","Chicago",40);
-        graph.insertEdge("Beloit","Chicago",10);
-        graph.insertEdge("Beloit","Rochester",10);
+        graph.insertEdge(makeLoc("Chicago"), makeLoc("Madison"),60);
+        graph.insertEdge(makeLoc("Chicago"), makeLoc("Milwaukee"),20);
+        graph.insertEdge(makeLoc("Chicago"), makeLoc("Rochester"),50);
+        graph.insertEdge(makeLoc("Madison"), makeLoc("Springfield"),10);
+        graph.insertEdge(makeLoc("Madison"), makeLoc("Milwaukee"),20);
+        graph.insertEdge(makeLoc("Milwaukee"), makeLoc("Madison"),30);
+        graph.insertEdge(makeLoc("Milwaukee"), makeLoc("Beloit"),10);
+        graph.insertEdge(makeLoc("Rochester"), makeLoc("Springfield"),30);
+        graph.insertEdge(makeLoc("Springfield"), makeLoc("Chicago"),40);
+        graph.insertEdge(makeLoc("Beloit"), makeLoc("Chicago"),10);
+        graph.insertEdge(makeLoc("Beloit"), makeLoc("Rochester"),10);
     }
 
     /**
@@ -40,7 +40,7 @@ public class AlgorithmEngineerTests {
      */
     @Test
     public void testPathCostChicagotoBeloit() {
-        assertTrue(graph.getPathCost("Chicago", "Beloit") == 30);
+        assertTrue(graph.getPathCost(makeLoc("Chicago"), makeLoc("Beloit")) == 30);
     }
 
     /**
@@ -48,7 +48,7 @@ public class AlgorithmEngineerTests {
      */
     @Test
     public void testPathCostAtoD() {
-        assertTrue(graph.getPathCost("Chicago", "Rochester") == 40);
+        assertTrue(graph.getPathCost(makeLoc("Chicago"), makeLoc("Rochester")) == 40);
     }
 
     /**
@@ -57,7 +57,7 @@ public class AlgorithmEngineerTests {
      */
     @Test
     public void testPathChicagotoRochester() {
-        assertTrue(graph.shortestPath("Chicago", "Rochester").toString().equals(
+        assertTrue(graph.shortestPath(makeLoc("Chicago"), makeLoc("Rochester")).toString().equals(
             "[Chicago, Milwaukee, Beloit, Rochester]"
         ));
     }
@@ -67,7 +67,7 @@ public class AlgorithmEngineerTests {
      */
     @Test
     public void testPathChicagotoChicago() {
-        assertEquals("[Chicago]", graph.shortestPath("Chicago", "Chicago").toString());
+        assertEquals("[Chicago]", graph.shortestPath(makeLoc("Chicago"), makeLoc("Chicago")).toString());
     }
 
     /**
@@ -75,6 +75,10 @@ public class AlgorithmEngineerTests {
      */
     @Test
     public void testNoPath() {
-        assertThrows(NoSuchElementException.class, () -> {graph.shortestPath("Chicago", "China");});
+        assertThrows(NoSuchElementException.class, () -> {graph.shortestPath(makeLoc("Chicago"), makeLoc("China"));});
+    }
+
+    public ILocation makeLoc(String name) {
+        return new Location(name);
     }
 }

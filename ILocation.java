@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -11,5 +12,4 @@ public interface ILocation {
     ArrayList<ILocation> getTargets();
 
     ArrayList<Double> getWeight();
-
 }

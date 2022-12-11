@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Graph<NodeType, EdgeType> implements IDijkstra<NodeType, Double> {
+public class GraphCreator<NodeType, EdgeType> implements IGraph<NodeType, Double> {
     // this is a placeholder class, so I can do my tests and load the files properly
 
     ArrayList<String[]> edges = new ArrayList<>();

@@ -1,5 +1,3 @@
-package src;
-
 import java.util.ArrayList;
 
 public class BackendPlaceholder implements IBackend {
@@ -46,8 +44,8 @@ public class BackendPlaceholder implements IBackend {
         return new ArrayList<>();
     }
 
-    public ArrayList<Double> calculateRouteDistance() {
-        return new ArrayList<>();
+    public Double calculateRouteDistance() {
+        return 0.0;
     }
 
     public void resetRoute() {

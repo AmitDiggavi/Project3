@@ -6,11 +6,11 @@ public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType
      * directed edges that lead away from them.
      */
     public class Vertex {
-        public NodeType data; // vertex label or application specific data
+        public ILocation data; // vertex label or application specific data
         public LinkedList<Edge> edgesLeaving;
 
         public Vertex(NodeType data) {
-            this.data = data;
+            this.data = (ILocation) data;
             this.edgesLeaving = new LinkedList<>();
         }
     }
@@ -89,8 +89,16 @@ public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType
     public boolean insertEdge(NodeType source, NodeType target, EdgeType weight) {
         if(source == null || target == null)
             throw new NullPointerException("Cannot add edge with null source or target");
-        Vertex sourceVertex = this.vertices.get(source);
-        Vertex targetVertex = this.vertices.get(target);
+        Vertex sourceVertex = null;
+        Vertex targetVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(source)) {
+                sourceVertex = v;
+            } else if (v.data.equals(target)) {
+                targetVertex = v;
+            }
+        }
+
         if(sourceVertex == null || targetVertex == null)
             throw new IllegalArgumentException("Cannot add edge with vertices that do not exist");
         if(weight.doubleValue() < 0)
@@ -238,7 +246,7 @@ public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType
             this.start = start;
             this.distance = 0.0D;
             this.dataSequence = new LinkedList<>();
-            this.dataSequence.add(start.data);
+            this.dataSequence.add((NodeType) start.data);
             this.end = start;
         }
 
@@ -255,7 +263,7 @@ public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType
             this.start = copyPath.start;
             this.distance = copyPath.distance + extendBy.weight.doubleValue();
             this.dataSequence = new LinkedList<>(copyPath.dataSequence);
-            this.dataSequence.add(extendBy.target.data);
+            this.dataSequence.add((NodeType) extendBy.target.data);
             this.end = extendBy.target;
         }
 

@@ -36,6 +36,15 @@ public class Location implements ILocation{
         return this.getLocation().equals(target.getLocation());
 
     }
+
+    public boolean equals(Object o) {
+        if (o instanceof ILocation)
+        {
+            return this.equalsTo((ILocation) o);
+        }
+        return false;
+    }
+
     public String toString()
     {
         return this.getLocation();

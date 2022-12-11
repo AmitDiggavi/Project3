@@ -13,6 +13,11 @@ public class Backend implements IBackend {
 
     ILocation current;
 
+    public static void main(String[] args) {
+        IBackend backend = new Backend();
+        System.out.println(backend.listCity());
+    }
+
     public Backend() {
         this.graph = new Graph<>();
 

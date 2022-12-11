@@ -13,12 +13,17 @@ public class Backend implements IBackend {
 
     ILocation current;
 
-    public Backend() throws FileNotFoundException {
+    public Backend() {
         this.graph = new Graph<>();
 
         listCity = new ArrayList<>();
 
-        new LocationLoader(graph).loadLocations("p3dot.dot");
+        try {
+            ILocationLoader loader = new LocationLoader(graph);
+            loader.loadLocations("p3dot.dot");
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not load file");
+        }
     }
 
     public void addCity(ILocation city) {

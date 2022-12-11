@@ -11,7 +11,10 @@ runAlgorithmEngineerTests: compileAlgorithmEngineerTests
 runDataWranglerTests: compileDataWranglerTests
 	java -jar junit5.jar -cp . -c DataWranglerTests
 
-compileTests: compileFrontendDeveloperTests compileAlgorithmEngineerTests compileDataWranglerTests
+runBackendDeveloperTests: compileBackendDeveloperTests
+	java -jar junit5.jar -cp . -c BackendDeveloperTests
+
+compileTests: compileFrontendDeveloperTests compileAlgorithmEngineerTests compileDataWranglerTests compileBackendDeveloperTests
 
 compileFrontendDeveloperTests: Frontend.java FrontendDeveloperTests.java
 	javac -cp .:junit5.jar FrontendDeveloperTests.java
@@ -21,6 +24,9 @@ compileAlgorithmEngineerTests: Graph.java AlgorithmEngineerTests.java
 
 compileDataWranglerTests: Location.java LocationLoader.java DataWranglerTests.java
 	javac -cp .:junit5.jar DataWranglerTests.java
+
+compileBackendDeveloperTests: Backend.java BackendDeveloperTests.java
+	javac -cp .:junit5.jar BackendDeveloperTests.java
 
 clean:
 	@rm *.class

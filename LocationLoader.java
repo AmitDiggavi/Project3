@@ -47,9 +47,9 @@ public class LocationLoader implements ILocationLoader {
                 }
             }
 
-            lhs.stream().sorted().forEach(x ->
-                    graph.insertVertex(new Location(x.replace("\"", "")))
-            );
+            for (String location : lhs) {
+                graph.insertVertex(new Location(location.replace("\"", "")));
+            }
 
             for (ArrayList<String> location : locations) {
                 ILocation from_location = (new Location(location.get(0).replace("\"", "")));

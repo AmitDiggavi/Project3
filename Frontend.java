@@ -1,3 +1,5 @@
+
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -8,6 +10,13 @@ public class Frontend implements IFrontend {
     private final IBackend backend;
     private final ArrayList<String> cityNames;
     private final Scanner scn;
+
+    public static void main(String[] args) {
+        IBackend backend = new Backend();
+        Scanner scn = new Scanner(System.in);
+        IFrontend frontend = new Frontend(backend, scn);
+        frontend.runCommandLoop();
+    }
 
     /**
      * Constructor for the src.Frontend class.

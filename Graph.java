@@ -1,16 +1,16 @@
 import java.util.*;
 
-public class Graph<NodeType,EdgeType extends Number> implements GraphADT<NodeType,EdgeType> {
+public class Graph<NodeType, EdgeType extends Number> implements IGraph<NodeType, EdgeType> {
     /**
      * Vertex objects group a data field with an adjacency list of weighted
      * directed edges that lead away from them.
      */
     public class Vertex {
-        public NodeType data; // vertex label or application specific data
+        public ILocation data; // vertex label or application specific data
         public LinkedList<Edge> edgesLeaving;
 
         public Vertex(NodeType data) {
-            this.data = data;
+            this.data = (ILocation) data;
             this.edgesLeaving = new LinkedList<>();
         }
     }
@@ -59,7 +59,12 @@ public class Graph<NodeType,EdgeType extends Number> implements GraphADT<NodeTyp
      */
     public boolean removeVertex(NodeType data) {
         if(data == null) throw new NullPointerException("Cannot remove null vertex");
-        Vertex removeVertex = vertices.get(data);
+        Vertex removeVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(data)) {
+                removeVertex = v;
+            }
+        }
         if(removeVertex == null) return false; // vertex not found within graph
         // search all vertices for edges targeting removeVertex
         for(Vertex v : vertices.values()) {
@@ -89,8 +94,16 @@ public class Graph<NodeType,EdgeType extends Number> implements GraphADT<NodeTyp
     public boolean insertEdge(NodeType source, NodeType target, EdgeType weight) {
         if(source == null || target == null)
             throw new NullPointerException("Cannot add edge with null source or target");
-        Vertex sourceVertex = this.vertices.get(source);
-        Vertex targetVertex = this.vertices.get(target);
+        Vertex sourceVertex = null;
+        Vertex targetVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(source)) {
+                sourceVertex = v;
+            } else if (v.data.equals(target)) {
+                targetVertex = v;
+            }
+        }
+
         if(sourceVertex == null || targetVertex == null)
             throw new IllegalArgumentException("Cannot add edge with vertices that do not exist");
         if(weight.doubleValue() < 0)
@@ -118,8 +131,15 @@ public class Graph<NodeType,EdgeType extends Number> implements GraphADT<NodeTyp
      */
     public boolean removeEdge(NodeType source, NodeType target) {
         if(source == null || target == null) throw new NullPointerException("Cannot remove edge with null source or target");
-        Vertex sourceVertex = this.vertices.get(source);
-        Vertex targetVertex = this.vertices.get(target);
+        Vertex sourceVertex = null;
+        Vertex targetVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(source)) {
+                sourceVertex = v;
+            } else if (v.data.equals(target)) {
+                targetVertex = v;
+            }
+        }
         if(sourceVertex == null || targetVertex == null) throw new IllegalArgumentException("Cannot remove edge with vertices that do not exist");
         // find edge to remove
         Edge removeEdge = null;
@@ -155,8 +175,15 @@ public class Graph<NodeType,EdgeType extends Number> implements GraphADT<NodeTyp
      */
     public boolean containsEdge(NodeType source, NodeType target) {
         if(source == null || target == null) throw new NullPointerException("Cannot contain edge adjacent to null data");
-        Vertex sourceVertex = vertices.get(source);
-        Vertex targetVertex = vertices.get(target);
+        Vertex sourceVertex = null;
+        Vertex targetVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(source)) {
+                sourceVertex = v;
+            } else if (v.data.equals(target)) {
+                targetVertex = v;
+            }
+        }
         if(sourceVertex == null) return false;
         for(Edge e : sourceVertex.edgesLeaving)
             if(e.target == targetVertex)
@@ -176,8 +203,15 @@ public class Graph<NodeType,EdgeType extends Number> implements GraphADT<NodeTyp
      */
     public EdgeType getWeight(NodeType source, NodeType target) {
         if(source == null || target == null) throw new NullPointerException("Cannot contain weighted edge adjacent to null data");
-        Vertex sourceVertex = vertices.get(source);
-        Vertex targetVertex = vertices.get(target);
+        Vertex sourceVertex = null;
+        Vertex targetVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(source)) {
+                sourceVertex = v;
+            } else if (v.data.equals(target)) {
+                targetVertex = v;
+            }
+        }
         if(sourceVertex == null || targetVertex == null) throw new IllegalArgumentException("Cannot retrieve weight of edge between vertices that do not exist");
         for(Edge e : sourceVertex.edgesLeaving)
             if(e.target == targetVertex)
@@ -204,6 +238,16 @@ public class Graph<NodeType,EdgeType extends Number> implements GraphADT<NodeTyp
      */
     public int getVertexCount() {
         return vertices.size();
+    }
+
+    /**
+     * Return all verticies' data in the graph.
+     */
+    public ArrayList<NodeType> getVertices() {
+        // return the keys of vertices sorted
+        ArrayList<NodeType> sortedKeys = new ArrayList<>(vertices.keySet());
+        sortedKeys.sort(null);
+        return sortedKeys;
     }
 
     /**
@@ -238,7 +282,7 @@ public class Graph<NodeType,EdgeType extends Number> implements GraphADT<NodeTyp
             this.start = start;
             this.distance = 0.0D;
             this.dataSequence = new LinkedList<>();
-            this.dataSequence.add(start.data);
+            this.dataSequence.add((NodeType) start.data);
             this.end = start;
         }
 
@@ -255,7 +299,7 @@ public class Graph<NodeType,EdgeType extends Number> implements GraphADT<NodeTyp
             this.start = copyPath.start;
             this.distance = copyPath.distance + extendBy.weight.doubleValue();
             this.dataSequence = new LinkedList<>(copyPath.dataSequence);
-            this.dataSequence.add(extendBy.target.data);
+            this.dataSequence.add((NodeType) extendBy.target.data);
             this.end = extendBy.target;
         }
 
@@ -295,17 +339,27 @@ public class Graph<NodeType,EdgeType extends Number> implements GraphADT<NodeTyp
         }
 
         // Throw NoSuchElementException if either start or end is not in the graph
-        if (vertices.get(start) == null || vertices.get(end) == null){
+        Vertex startVertex = null;
+        Vertex endVertex = null;
+        for (Vertex v : vertices.values()) {
+            if (v.data.equals(start)) {
+                startVertex = v;
+            }
+            if (v.data.equals(end)) {
+                endVertex = v;
+            }
+        }
+        if (startVertex == null || endVertex == null){
             throw new NoSuchElementException("no vertex containing start or end can be found");
         }
         // If start and end are the same node return the path
         if (start.equals(end)){
-            return new Path(vertices.get(start));
+            return new Path(startVertex);
         }
 
-        distances.put(vertices.get(start), 0.0);
+        distances.put(startVertex, 0.0);
         PriorityQueue<Path> queue = new PriorityQueue<>();
-        queue.add(new Path(vertices.get(start)));
+        queue.add(new Path(startVertex));
 
         while (!queue.isEmpty()) {
             Path shortestPath = queue.remove();

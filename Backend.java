@@ -1,275 +1,165 @@
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Backend implements IBackend
-{
-	ArrayList<ILocation> listCity; 
-	
-	ArrayList<ILocation> listStops = new ArrayList<>();
-	
-    protected IDijkstra<String, Double> graph;
-    
+public class Backend implements IBackend {
+    ArrayList<ILocation> listCity;
+
+    ArrayList<ILocation> listStops = new ArrayList<>();
+
+    protected IGraph<ILocation, Double> graph;
+
     ILocation target;
-    
+
     ILocation current;
-    
-    public Backend()
-    {
-    	this.graph = new Dijkstra<>();
-    	
-    	listCity = new ArrayList<>();
-    
-	LocationLoader load  = new LocationLoader();
-	
-	for(ILocation l: load.loadLocations())
-        {
-		listCity.add(l);
-	}
-        
-        for(ILocation l: listCity)
-        {
-        	addCity(l);
-        	
-        }
-        
-        for(ILocation l: listCity)
-        {
-        	addEdge(l);
-        }
-    	
+
+    public static void main(String[] args) {
+        IBackend backend = new Backend();
+        System.out.println(backend.listCity());
     }
 
-	@Override
-	public void addCity(ILocation city) 
-	{	
-		   graph.insertVertex(city.getLocation());
-	}
-	
-	public void addEdge(ILocation edge)
-	{
-	
-		for(int i = 0; i < edge.getWeights().size(); i++)
-		{
-			ILocation target = edge.getTargets().get(i);
-			
-			Double weight = edge.getWeights().get(i);
-			
-			graph.insertEdge(edge.getLocation(), target.getLocation(), weight);
-		}
+    public Backend() {
+        this.graph = new Graph<>();
 
-	}
+        listCity = new ArrayList<>();
 
-	@Override
-	public void setCurrentLocation(String currentCity)
-	{
-		if(currentCity == null)
-		{
-			return;
-		}
-		
-        for(ILocation l : listCity)
-        {
-          if(l.getLocation().equals(currentCity))
-          {
-        	  current = l;
-        	  
-        	  return;
-          }
+        try {
+            ILocationLoader loader = new LocationLoader(graph);
+            loader.loadLocations("p3dot.dot");
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not load file");
         }
-		
-	}
 
-	@Override
-	public String getCurrentLocation()
-	{
-		return current.getLocation();
-	}
+        for (ILocation city : graph.getVertices()) {
+            listCity.add(city);
+        }
+    }
 
-	@Override
-	public ArrayList<ILocation> getlistCity()
-	{
-	   return listCity;
-	}
+    public void addCity(ILocation city) {
+        graph.insertVertex(city);
+    }
 
-	@Override
-	public void setTargetLocation(String TargetCity) 
-	{
-		if(TargetCity == null)
-		{
-			return;
-		}
-		
-		 for(ILocation l : listCity)
-	        {
-	          if(l.getLocation().equals(TargetCity))
-	          {
-	        	  target = l;
-	        	  
-	        	  return;
-	          }
-	        }
-		
-	}
+    public void setCurrentLocation(String currentCity) {
+        if (currentCity == null) {
+            return;
+        }
 
-	@Override
-	public String getTargetLocation()
-	{
-		return target.getLocation();
-	}
+        for (ILocation l : listCity) {
+            if (l.getLocation().equals(currentCity)) {
+                current = l;
 
-	@Override
-	public void addStops(ArrayList<String> additionalStops)
-	{
-		
-		for(String l : additionalStops)
-		{
-			for(int i = 0; i< listCity.size(); i++) 
-			{
-				if(l.equals(listCity.get(i).getLocation()))
-				{
-                  listStops.add(listCity.get(i));
-				}
-			}
-		}
-		
-	}
+                return;
+            }
+        }
 
-	@Override
-	public ArrayList<String> getStops()
-	{
-		ArrayList<String> str = new ArrayList<>();
-		
-		for(ILocation s : listStops)
-		{
-			str.add(s.getLocation());
-		}
-		return str;
-	}
+    }
 
-	@Override
-	public ArrayList<ILocation> calculateRoute() 
-	{
-		ArrayList<ILocation> shortestpath = new ArrayList<>();
-		
-		if(getCurrentLocation() != null && getTargetLocation() != null ) 
-		{
-			List<String> sp = graph.shortestPath(getCurrentLocation(), getTargetLocation());
-			
-			if(getStops().size() > 0)
-			{
-				String temp1 = getTargetLocation();
-				
-				for(int i = 0; i < getStops().size(); i++)
-				{
-				  String temp2 = getStops().get(i);
-					
-				   List<String> path =  graph.shortestPath(temp1, temp2);
-				   
-				   temp1 = temp2;
-				  
-				   for(int j = 0; j < path.size()-1; j++)
-				   {
-					   sp.add(path.get(j+1));
-					   
-				   }
-				}
-				 
-				
-			}
-			
-			Location previous = null;
-			
-			for(String s: sp)
-			{
-				Location l = new Location(s, new ArrayList<ILocation>(), new ArrayList<Double>());
-				
-				shortestpath.add(l);
-				
-				if(previous != null)
-				{
-					previous.getTargets().add(l);
-					
-					previous.getWeights().add(graph.getWeight(previous.getLocation(), l.getLocation()));
-				}
-				
-				previous = l;
-				
-			}
-			
-		}
-	
-		return shortestpath;
-	
-	}
+    public String getCurrentLocation() {
+        if (current == null) return null;
 
-	@Override
-	public Double calculateRouteDistance() 
-	{
-	   ArrayList<ILocation> shortestpath = calculateRoute();
-	   
-	   
-	   double routeDistance = 0.0;
-	   
-	   for(ILocation l : shortestpath)
-	   {
-		   if(l.getWeights().size() > 0)
-		   {
-		        routeDistance = routeDistance + l.getWeights().get(0);
-		   }
-	   }
-	   
-	   return routeDistance;
-	}
+        return current.getLocation();
+    }
 
-	@Override
-	public void resetRoute() 
-	{ 
-		target = null;
-		
-		current = null;
-		
-		listStops = null;
-		
-	}
-	
-	public static void main(String[] args)
-	{
-		Backend backend = new Backend();
-		
-		ArrayList<ILocation> path2 = new ArrayList<>();
-		
-		backend.setCurrentLocation("A");
-		
-		backend.setTargetLocation("D");
-		
-		ArrayList<String> stops = new ArrayList<>();
-		
-        stops.add("C");
-    	
-    	stops.add("B");
-    	
-    	backend.addStops(stops);
-    	
-    	Double distance = backend.calculateRouteDistance();
-    	
-    	System.out.println(distance);
-    	
-    	path2 = backend.calculateRoute();
-    	
-    	 String Calculatedroute = "";
-    	
-    	for(ILocation p: path2)
-    	{
-			Calculatedroute = Calculatedroute + p.getLocation();
-		
-    	}
-    	
-    	System.out.println(Calculatedroute);
-    	
-    	
-		
-		
-	}
+    public ArrayList<ILocation> listCity() {
+        return listCity;
+    }
 
+    public void setTargetLocation(String targetCity) {
+        if (targetCity == null) {
+            return;
+        }
+
+        for (ILocation l : listCity) {
+            if (l.getLocation().equals(targetCity)) {
+                target = l;
+
+                return;
+            }
+        }
+
+    }
+
+    public String getTargetLocation() {
+        if (target == null) return null;
+
+        return target.getLocation();
+    }
+
+    public void addStops(ArrayList<String> additionalStops) {
+
+        for (String l : additionalStops) {
+            for (int i = 0; i < listCity.size(); i++) {
+                if (l.equals(listCity.get(i).getLocation())) {
+                    listStops.add(listCity.get(i));
+                }
+            }
+        }
+
+    }
+
+    public ArrayList<String> getStops() {
+        ArrayList<String> str = new ArrayList<>();
+
+        for (ILocation s : listStops) {
+            str.add(s.getLocation());
+        }
+        return str;
+    }
+
+    public ArrayList<ILocation> calculateRoute() {
+        if (getStops().size() == 0) {
+            return new ArrayList<>(graph.shortestPath(current, target));
+        } else {
+            List<ILocation> route = graph.shortestPath(current, listStops.get(0));
+            for (ILocation stop : listStops) {
+                if (listStops.indexOf(stop) == 0) continue;
+                // if last stop
+                if (listStops.indexOf(stop) == listStops.size() - 1) {
+                    route.addAll(graph.shortestPath(stop, target));
+                } else {
+                    route.addAll(graph.shortestPath(stop, listStops.get(listStops.indexOf(stop) + 1)));
+                }
+            }
+            return new ArrayList<>(route);
+        }
+    }
+
+    private ILocation getLocation(String city) {
+        for (ILocation l : listCity) {
+            if (l.getLocation().equals(city)) {
+                return l;
+            }
+        }
+
+        return null;
+    }
+
+    public Double calculateRouteDistance() {
+        ArrayList<ILocation> shortestPath = calculateRoute();
+
+
+        double routeDistance = 0.0;
+
+        for (ILocation location : shortestPath) {
+            // if not last location
+            if (shortestPath.indexOf(location) != shortestPath.size() - 1) {
+                routeDistance += graph.getPathCost(
+                        location,
+                        shortestPath.get(shortestPath.indexOf(location) + 1)
+                );
+            }
+        }
+
+        return routeDistance;
+    }
+
+    public void resetRoute() {
+        target = null;
+
+        current = null;
+
+        listStops = null;
+
+    }
 }
 

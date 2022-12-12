@@ -1,5 +1,3 @@
-
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -123,15 +121,7 @@ public class Frontend implements IFrontend {
      * Set the current city.
      */
     public void setCurrentCity() {
-        System.out.println("Enter City:");
-        scn.nextLine();
-        String city = scn.nextLine().trim();
-        if (this.cityNames.contains(city)) {
-            backend.setCurrentLocation(city);
-        } else {
-            System.out.println("Invalid city, please enter a valid city");
-            setCurrentCity();
-        }
+        backend.setCurrentLocation(promptAndCheckCity());
 
         System.out.println();
         displayMainMenu();
@@ -141,15 +131,7 @@ public class Frontend implements IFrontend {
      * Set the target city.
      */
     public void setTargetCity() {
-        System.out.println("Enter City:");
-        scn.nextLine();
-        String city = scn.nextLine().trim();
-        if (this.cityNames.contains(city)) {
-            backend.setTargetLocation(city);
-        } else {
-            System.out.println("Invalid city, please enter a valid city");
-            setCurrentCity();
-        }
+        backend.setTargetLocation(promptAndCheckCity());
 
         System.out.println();
         displayMainMenu();
@@ -159,39 +141,57 @@ public class Frontend implements IFrontend {
      * Add a stop.
      */
     public void addStop() {
-        System.out.println("Enter City:");
-        scn.nextLine();
-        String city = scn.nextLine().trim();
-        if (this.cityNames.contains(city)) {
-            backend.addStops(new ArrayList<>() {{
-                add(city);
-            }});
-        } else {
-            System.out.println("Invalid city, please enter a valid city");
-            addStop();
-        }
+        backend.addStops(new ArrayList<>() {{
+            add(promptAndCheckCity());
+        }});
 
         System.out.println();
         displayMainMenu();
+    }
+
+    private String promptAndCheckCity() {
+        System.out.println("Enter City:");
+        scn.nextLine();
+        String city = null;
+        while (city == null) {
+            city = scn.nextLine().trim();
+            if (!cityNames.contains(city)) {
+                System.out.println("Invalid city, please enter a valid city");
+                city = null;
+            }
+        }
+
+        return city;
     }
 
     /**
      * Calculate the route.
      */
     public void calculateRoute() {
-        System.out.println("The shortest route is:");
         ArrayList<ILocation> route = backend.calculateRoute();
+        if (route == null) {
+            System.out.println("No route found");
+            displayMainMenu();
+            return;
+        }
+
+        System.out.println("The shortest route is:");
+        ArrayList<Double> distanceBetweenStops = backend.calculateRouteDistance();
 
         StringBuilder stringifiedRoute = new StringBuilder();
-        for (ILocation location : route) {
-            stringifiedRoute.append(
-                    location.getLocation() +
-                            " (" + location.getWeight() + " Miles)")
+        stringifiedRoute.append(route.get(0).getLocation() + " -> ");
+        for (int i = 1; i < route.size(); i++) {
+            stringifiedRoute.append(route.get(i).getLocation())
+                    .append(" (" + distanceBetweenStops.get(i - 1) + " Miles)")
                     .append(" -> ");
         }
         stringifiedRoute.delete(stringifiedRoute.length() - 4, stringifiedRoute.length());
 
         System.out.println("Route: " + stringifiedRoute);
+        System.out.println("Total Distance: " + backend.calculateRouteDistance()
+                .stream()
+                .mapToDouble(Double::doubleValue)
+                .sum() + " Miles");
         System.out.println("\nSafe travels!\n");
         displayMainMenu();
     }

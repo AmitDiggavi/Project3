@@ -28,7 +28,7 @@ public class LocationLoader implements ILocationLoader {
                 String str = scan.nextLine();
                 if (str.contains("->")) {
 
-                    String[] b = str.split(" -> ");
+                    String[] b = str.split("->");
                     ArrayList<String> str_list = new ArrayList<>();
                     String from = b[0].trim();
                     str_list.add(from);

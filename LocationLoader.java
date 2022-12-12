@@ -40,7 +40,6 @@ public class LocationLoader implements ILocationLoader {
 
                 }
             }
-
             for (ArrayList<String> str : locations) {
                 for (int i = 0; i < 2; i++) {
                     lhs.add((str.get(i)));

@@ -57,19 +57,19 @@ public interface IBackend {
    */
   public ArrayList<String> getStops();
 
-/**
+  /**
    * Finds the shortest path between a set of cities
    * 
    * @return an array of cities which demonstrates the short path
    */
   public ArrayList<ILocation> calculateRoute();
 
-/**
-   * Finds the distance the total distance of the shortest path  
+  /**
+   * Finds the distance between each city of the shortest path
    * 
    * @return a double of distance the short path
    */
-  public Double calculateRouteDistance();
+  public ArrayList<Double> calculateRouteDistance();
 
 
   /*

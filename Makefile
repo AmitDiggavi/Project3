@@ -1,3 +1,8 @@
+run: MadMapper.java Frontend.java Backend.java Graph.java LocationLoader.java Location.java
+	javac MadMapper.java
+	java MadMapper
+	@$(MAKE) clean
+
 runTests: compileTests
 	java -jar junit5.jar -cp . --scan-class-path
 	@$(MAKE) clean

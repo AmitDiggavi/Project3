@@ -68,17 +68,17 @@ public class BackendDeveloperTests
 		
 		ArrayList<ILocation> path2 = new ArrayList<>();
 		
-		String Expectedroute = "Madison";
+		String Expectedroute = "Madison,Rockford,Chicago,Milwaukee,Whitewater,Rockford";
 		
-        backend.setCurrentLocation("A");
+        backend.setCurrentLocation("Madison");
 		
-		backend.setTargetLocation("D");
+		backend.setTargetLocation("Rockford");
 		
         ArrayList<String> stops = new ArrayList<>();
     	
-    	stops.add("C");
+    	stops.add("Chicago");
     	
-    	stops.add("B");
+    	stops.add("Milwaukee");
     	
     	backend.addStops(stops);
     	
@@ -107,21 +107,20 @@ public class BackendDeveloperTests
 	{
 		Backend backend = new Backend();
 		
-		backend.setCurrentLocation("A");
+		backend.setCurrentLocation("Madison");
 		
-		backend.setTargetLocation("D");
+		backend.setTargetLocation("Wilwaukee");
 		
 		ArrayList<String> stops = new ArrayList<>();
 		
-         stops.add("C");
+         stops.add("Chicago");
     	
-    	 stops.add("B");
     	
     	 backend.addStops(stops);
     	
     	Double distance = backend.calculateRouteDistance();
     	
-    	assertEquals(distance, 14.0);
+    	assertEquals(distance, 165.0);
 			
 		
 	}
@@ -136,9 +135,9 @@ public class BackendDeveloperTests
 	{
         Backend backend = new Backend();
 	
-        backend.setTargetLocation("A");
+        backend.setTargetLocation("Chicago");
 		
-		assertEquals("A", backend.getTargetLocation());
+		assertEquals("Chicago", backend.getTargetLocation());
 	}
 			
 

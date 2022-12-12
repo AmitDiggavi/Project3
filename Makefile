@@ -8,6 +8,15 @@ runFrontendDeveloperTests: compileFrontendDeveloperTests
 runAlgorithmEngineerTests: compileAlgorithmEngineerTests
 	java -jar junit5.jar -cp . -c AlgorithmEngineerTests
 
+
+runBackendDeveloperTests: compileBackendDeveloperTests
+	 java -jar junit5.jar -cp . -c BackendDeveloperTests
+
+compileTests: compileFrontendDeveloperTests compileAlgorithmEngineerTests compileBackendDeveloperTests
+
+compileBackendDeveloperTests: Backend.java BackendDeveloperTests.java
+	javac -cp .:junit5.jar BackendDeveloperTests.java
+
 runDataWranglerTests: compileDataWranglerTests
 	java -jar junit5.jar -cp . -c DataWranglerTests
 
@@ -15,6 +24,7 @@ runBackendDeveloperTests: compileBackendDeveloperTests
 	java -jar junit5.jar -cp . -c BackendDeveloperTests
 
 compileTests: compileFrontendDeveloperTests compileAlgorithmEngineerTests compileDataWranglerTests compileBackendDeveloperTests
+
 
 compileFrontendDeveloperTests: Frontend.java FrontendDeveloperTests.java
 	javac -cp .:junit5.jar FrontendDeveloperTests.java

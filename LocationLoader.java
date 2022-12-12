@@ -47,12 +47,13 @@ public class LocationLoader implements ILocationLoader {
                 }
             }
 
-            for (String location : lhs) {
-                graph.insertVertex(new Location(location));
-            }
+            lhs.stream().sorted().forEach(x ->
+                    graph.insertVertex(new Location(x.replace("\"", "")))
+            );
+
             for (ArrayList<String> location : locations) {
-                ILocation from_location = (new Location(location.get(0)));
-                ILocation to_location = (new Location(location.get(1)));
+                ILocation from_location = (new Location(location.get(0).replace("\"", "")));
+                ILocation to_location = (new Location(location.get(1).replace("\"", "")));
                 double convert_to_double = (Double.parseDouble(location.get(2)));
                 graph.insertEdge(from_location, to_location, convert_to_double);
             }

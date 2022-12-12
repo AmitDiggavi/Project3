@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * Interface for the DataWrangler
  */
 
-public interface ILocation {
+public interface ILocation extends Comparable<ILocation> {
 
     String getLocation();
 

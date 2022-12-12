@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Location implements ILocation{
+public class Location implements ILocation {
     String name;
     ArrayList<ILocation> targets;
     ArrayList<Double> weight;
@@ -48,5 +48,9 @@ public class Location implements ILocation{
     public String toString()
     {
         return this.getLocation();
+    }
+
+    public int compareTo(ILocation o) {
+        return this.getLocation().compareTo(o.getLocation());
     }
 }

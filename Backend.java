@@ -29,6 +29,10 @@ public class Backend implements IBackend {
         } catch (FileNotFoundException e) {
             System.out.println("Could not load file");
         }
+
+        for (ILocation city : graph.getVertices()) {
+            listCity.add(city);
+        }
     }
 
     public void addCity(ILocation city) {
@@ -51,6 +55,8 @@ public class Backend implements IBackend {
     }
 
     public String getCurrentLocation() {
+        if (current == null) return null;
+
         return current.getLocation();
     }
 
@@ -74,6 +80,8 @@ public class Backend implements IBackend {
     }
 
     public String getTargetLocation() {
+        if (target == null) return null;
+
         return target.getLocation();
     }
 

@@ -64,7 +64,8 @@ public class DataWranglerTests {
             } catch (Exception e) {
 
             }
-            assertEquals(75, graph.getEdgeCount());
+            assertEquals(graph.getEdgeCount(), 80);
+
         }
     }
 
@@ -80,7 +81,7 @@ public class DataWranglerTests {
         } catch (Exception e) {
 
         }
-        System.out.println(graph);
+
         assertTrue(graph.containsEdge(new Location("Chicago"), new Location("Milwaukee")));
     }
 }

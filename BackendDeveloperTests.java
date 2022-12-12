@@ -114,7 +114,7 @@ public class BackendDeveloperTests
 		
 		backend.setCurrentLocation("Madison");
 		
-		backend.setTargetLocation("Wilwaukee");
+		backend.setTargetLocation("Milwaukee");
 		
 		ArrayList<String> stops = new ArrayList<>();
 		
@@ -123,9 +123,13 @@ public class BackendDeveloperTests
     	
     	 backend.addStops(stops);
     	
-    	Double distance = backend.calculateRouteDistance();
+    	ArrayList<Double> distances = backend.calculateRouteDistance();
+		Double totalDistance = 0.0;
+		for (Double d : distances) {
+			totalDistance += d;
+		}
     	
-    	assertEquals(distance, 165.0);
+    	assertEquals(totalDistance, 255.0);
 			
 		
 	}
@@ -207,7 +211,8 @@ public class BackendDeveloperTests
 			 		+ "	 7. Exit\n"
 			 		+ "\n"
 			 		+ "The shortest route is:\n"
-			 		+ "Route: Madison (null Miles) -> Rockford (null Miles) -> Chicago (null Miles)\n"
+			 		+ "Route: Madison -> Rockford (75.0 Miles) -> Chicago (90.0 Miles)\n" +
+					 "Total Distance: 165.0 Miles\n"
 			 		+ "\n"
 			 		+ "Safe travels!\n"
 			 		+ "\n"
@@ -302,7 +307,8 @@ public class BackendDeveloperTests
 			 		+ "	 7. Exit\n"
 			 		+ "\n"
 			 		+ "The shortest route is:\n"
-			 		+ "Route: Madison (null Miles) -> Rockford (null Miles)\n"
+			 		+ "Route: Madison -> Rockford (75.0 Miles) -> Chicago (90.0 Miles)\n"
+					+ "Total Distance: 165.0 Miles\n"
 			 		+ "\n"
 			 		+ "Safe travels!\n"
 			 		+ "\n"

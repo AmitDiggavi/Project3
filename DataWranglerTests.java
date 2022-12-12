@@ -67,7 +67,7 @@ public class DataWranglerTests {
             } catch (Exception e) {
 
             }
-            assertEquals(graph.getEdgeCount(), 75);
+            assertEquals(75, graph.getEdgeCount());
 
         }
     }

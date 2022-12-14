@@ -327,5 +327,36 @@ public class BackendDeveloperTests
 			 assertEquals(expected, tester.checkOutput());
 			 
 		}
+		
+		
+		/**
+	     * this test is to check the getLocation method 
+	     */
+	    @Test
+	    public void BackendDeveloperCodeReviewForDataWrangler1() {
+	        Location l = new Location("Chicago");
+
+	        assertEquals("Chicago", l.getLocation());
+	    }
+	    
+		
+		 /**
+	     * this test loads the dot file
+	     * and checks if specific edges match
+	     */
+	    @Test
+	    public void BackendDeveloperCodeReviewForDataWrangler2()
+	    {
+	    	Graph<ILocation, Double> graph =  new Graph<>();
+	    	
+	        try {
+	            new LocationLoader(graph).loadLocations("p3dot.dot");
+
+	        } catch (Exception e) {
+
+	        }
+
+	        assertTrue(graph.containsEdge(new Location("Madison"), new Location("Janesville")));
+	    }
 
 }

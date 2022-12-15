@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -127,10 +129,10 @@ public class DataWranglerTests {
     }
 
     /**
-     * Checking the getWeight method to see if it will return the correct number.
+     * Testing getStops.
      */
     @Test
-    public void CodeReviewOfAlgorithmEngineer1()
+    public void CodeReviewOfBackendDeveloper1()
     {
         // loading the graph with a try catch, so it can throw the FileNotFoundException.
         try {
@@ -139,11 +141,24 @@ public class DataWranglerTests {
         } catch (Exception e) {
 
         }
-       assertEquals(graph.getWeight(new Location("Chicago"), new Location("Milwaukee")), 90);
+
+        Backend backend = new Backend();
+
+        ArrayList<String> stops = new ArrayList<>();
+
+        stops.add("Rockford");
+
+        backend.addStops(stops);
+
+        assertEquals(stops, backend.getStops());
+
     }
 
+    /**
+     * Testing the get and set methods for the currentLocation and targetLocation.
+     */
     @Test
-    public void CodeReviewOfAlgorithmEngineer2()
+    public void CodeReviewOfBackendDeveloper2()
     {
         // loading the graph with a try catch, so it can throw the FileNotFoundException.
         try {
@@ -153,9 +168,15 @@ public class DataWranglerTests {
 
         }
 
-        graph.insertEdge( new Location("Madison"), new Location("Springfield"), 100.0);
+        Backend backend = new Backend();
 
-        assertEquals(76, graph.getEdgeCount());
+        backend.setCurrentLocation("Waukesha");
+        backend.setTargetLocation("Chicago");
+
+
+        assertEquals("Waukesha", backend.getCurrentLocation());
+        assertEquals("Chicago", backend.getTargetLocation());
+
 
     }
 

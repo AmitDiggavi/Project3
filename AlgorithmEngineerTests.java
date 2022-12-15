@@ -128,146 +128,41 @@ public class AlgorithmEngineerTests {
     }
 
     /**
-     * Tests the find route functionality.
+     * testing the getLocation method
      */
     @Test
-    public void codeReviewofFrontendDeveloperTest1() {
-        TextUITester uiTester = new TextUITester("2\nMadison\n3\nChicago\n5\n7\n");
-        Scanner scn = new Scanner(System.in);
-        IBackend backend = new Backend();
-        IFrontend frontend = new Frontend(backend, scn);
-        frontend.runCommandLoop();
+    public void codeReviewofDataWrangler1() 
+    {
+    	Graph<ILocation, Double> graph = new Graph<>();
+    	
+    	//loading the dot file, to use for the data
+    	  try {
+              new LocationLoader(graph).loadLocations("p3dot.dot");
 
-        String expected = """
-                Welcome to MadMapper
-                —--------------------------------------------------
+          } catch (Exception e) {
+    	
+    	Location location = new Location("Chicago");
 
-                You are in the Main Menu:
-                Current Itinerary: Unset -> Unset
-                Choose an option:
-                \t 1. List all cities
-                \t 2. Set current city
-                \t 3. Set target city
-                \t 4. Add stop
-                \t 5. Find route
-                \t 6. Reset stops
-                \t 7. Exit
-
-                Enter City:
-
-                You are in the Main Menu:
-                Current Itinerary: Madison -> Unset
-                Choose an option:
-                \t 1. List all cities
-                \t 2. Set current city
-                \t 3. Set target city
-                \t 4. Add stop
-                \t 5. Find route
-                \t 6. Reset stops
-                \t 7. Exit
-
-                Enter City:
-
-                You are in the Main Menu:
-                Current Itinerary: Madison -> Chicago
-                Choose an option:
-                \t 1. List all cities
-                \t 2. Set current city
-                \t 3. Set target city
-                \t 4. Add stop
-                \t 5. Find route
-                \t 6. Reset stops
-                \t 7. Exit
-                
-                The shortest route is:
-                Route: Madison -> Rockford (75.0 Miles) -> Chicago (90.0 Miles)
-                Total Distance: 165.0 Miles
-                                
-                Safe travels!
-                                
-                You are in the Main Menu:
-                Current Itinerary: Madison -> Chicago
-                Choose an option:
-                \t 1. List all cities
-                \t 2. Set current city
-                \t 3. Set target city
-                \t 4. Add stop
-                \t 5. Find route
-                \t 6. Reset stops
-                \t 7. Exit
-                            
-                """;
-
-        // Check that the output is correct
-        assertEquals(expected, uiTester.checkOutput());
+        assertEquals("Chicago", location.getLocation());
+          }
     }
 
     /**
-     * Tests the reset route functionality.
+     * 
      */
     @Test
-    public void codeReviewofFrontendDeveloperTest2() {
-        TextUITester uiTester = new TextUITester("2\nMadison\n3\nChicago\n6\n7\n");
-        Scanner scn = new Scanner(System.in);
-        IBackend backend = new Backend();
-        IFrontend frontend = new Frontend(backend, scn);
-        frontend.runCommandLoop();
+    public void codeReviewofDataWranglerTest2()
+    {
+    	Graph<ILocation, Double> graph = new Graph<>();
+    	//loading the dot file, to use for the data
+  	  try {
+            new LocationLoader(graph).loadLocations("p3dot.dot");
 
-        String expected = """
-                Welcome to MadMapper
-                —--------------------------------------------------
-
-                You are in the Main Menu:
-                Current Itinerary: Unset -> Unset
-                Choose an option:
-                \t 1. List all cities
-                \t 2. Set current city
-                \t 3. Set target city
-                \t 4. Add stop
-                \t 5. Find route
-                \t 6. Reset stops
-                \t 7. Exit
-
-                Enter City:
-
-                You are in the Main Menu:
-                Current Itinerary: Madison -> Unset
-                Choose an option:
-                \t 1. List all cities
-                \t 2. Set current city
-                \t 3. Set target city
-                \t 4. Add stop
-                \t 5. Find route
-                \t 6. Reset stops
-                \t 7. Exit
-
-                Enter City:
-
-                You are in the Main Menu:
-                Current Itinerary: Madison -> Chicago
-                Choose an option:
-                \t 1. List all cities
-                \t 2. Set current city
-                \t 3. Set target city
-                \t 4. Add stop
-                \t 5. Find route
-                \t 6. Reset stops
-                \t 7. Exit
-                
-                You are in the Main Menu:
-                Current Itinerary: Unset -> Unset
-                Choose an option:
-                \t 1. List all cities
-                \t 2. Set current city
-                \t 3. Set target city
-                \t 4. Add stop
-                \t 5. Find route
-                \t 6. Reset stops
-                \t 7. Exit
-                            
-                """;
-
-        // Check that the output is correct
-        assertEquals(expected, uiTester.checkOutput());
+        } catch (Exception e) {
+        	
+        	assertTrue(graph.containsEdge(new Location("Madison"), new Location("Rockford")));
+        }
     }
+    
+    
 }

@@ -129,11 +129,12 @@ public class DataWranglerTests {
     }
 
     /**
-     * Testing getStops.
+     * Testing getPathCost.
      */
     @Test
-    public void CodeReviewOfBackendDeveloper1()
+    public void CodeReviewOfAlgorithmEngineer1()
     {
+        /*
         // loading the graph with a try catch, so it can throw the FileNotFoundException.
         try {
             new LocationLoader(graph).loadLocations("p3dot.dot");
@@ -152,14 +153,28 @@ public class DataWranglerTests {
 
         assertEquals(stops, backend.getStops());
 
+
+         */
+        // loading the graph with a try catch, so it can throw the FileNotFoundException.
+        try {
+            new LocationLoader(graph).loadLocations("p3dot.dot");
+
+        } catch (Exception e) {
+
+        }
+
+
+        assertEquals(graph.getPathCost(new Location("Rockford"), new Location("Chicago")), 90);
     }
+
 
     /**
      * Testing the get and set methods for the currentLocation and targetLocation.
      */
     @Test
-    public void CodeReviewOfBackendDeveloper2()
+    public void CodeReviewOfAlgorithmEngineer2()
     {
+        /*
         // loading the graph with a try catch, so it can throw the FileNotFoundException.
         try {
             new LocationLoader(graph).loadLocations("p3dot.dot");
@@ -176,6 +191,17 @@ public class DataWranglerTests {
 
         assertEquals("Waukesha", backend.getCurrentLocation());
         assertEquals("Chicago", backend.getTargetLocation());
+
+         */
+        // loading the graph with a try catch, so it can throw the FileNotFoundException.
+        try {
+            new LocationLoader(graph).loadLocations("p3dot.dot");
+
+        } catch (Exception e) {
+
+        }
+
+        assertTrue(graph.containsEdge(new Location("Janesville"), new Location("Whitewater")));
 
 
     }

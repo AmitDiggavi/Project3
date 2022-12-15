@@ -330,33 +330,124 @@ public class BackendDeveloperTests
 		
 		
 		/**
-	     * this test is to check the getLocation method 
+	     * this test is to checks if the frontend is displaying the current city in the itinerary
+	     * then it exits the program
 	     */
 	    @Test
-	    public void BackendDeveloperCodeReviewForDataWrangler1() {
-	        Location l = new Location("Chicago");
-
-	        assertEquals("Chicago", l.getLocation());
+	    public void BackendDeveloperCodeReviewForFrontendDeveloper1()
+	    {
+	    	TextUITester tester = new TextUITester("1\n7\n");
+			 
+			 Scanner scn = new Scanner(System.in);
+			 
+			 IBackend backend = new Backend();
+			 
+			 IFrontend frontend = new Frontend(backend, scn);
+			 
+			 frontend.runCommandLoop();
+			 
+	     
+	     String expected = "Welcome to MadMapper\n"
+	    			+ "—--------------------------------------------------\n"
+	    			+ "\n"
+	    			+ "You are in the Main Menu:\n"
+	    			+ "Current Itinerary: Unset -> Unset\n"
+	    			+ "Choose an option:\n"
+	    			+ "	 1. List all cities\n"
+	    			+ "	 2. Set current city\n"
+	    			+ "	 3. Set target city\n"
+	    			+ "	 4. Add stop\n"
+	    			+ "	 5. Find route\n"
+	    			+ "	 6. Reset stops\n"
+	    			+ "	 7. Exit\n"
+	    			+ "\n"
+	    			+ "List of cities:\n"
+	    			+ "	1. Appleton\n"
+	    			+ "	2. Chicago\n"
+	    			+ "	3. Eau Claire\n"
+	    			+ "	4. Green Bay\n"
+	    			+ "	5. Janesville\n"
+	    			+ "	6. Kenosha\n"
+	    			+ "	7. La Crosse\n"
+	    			+ "	8. Madison\n"
+	    			+ "	9. Middleton\n"
+	    			+ "	10. Milwaukee\n"
+	    			+ "	11. Minneapolis\n"
+	    			+ "	12. Naperville\n"
+	    			+ "	13. Oshkosh\n"
+	    			+ "	14. Rochester\n"
+	    			+ "	15. Rockford\n"
+	    			+ "	16. Saint Paul\n"
+	    			+ "	17. Springfield\n"
+	    			+ "	18. Stevens Point\n"
+	    			+ "	19. Waukesha\n"
+	    			+ "	20. Whitewater\n"
+	    			+ "	21. Wisconsin Dells\n"
+	    			+ "\n"
+	    			+ "You are in the Main Menu:\n"
+	    			+ "Current Itinerary: Unset -> Unset\n"
+	    			+ "Choose an option:\n"
+	    			+ "	 1. List all cities\n"
+	    			+ "	 2. Set current city\n"
+	    			+ "	 3. Set target city\n"
+	    			+ "	 4. Add stop\n"
+	    			+ "	 5. Find route\n"
+	    			+ "	 6. Reset stops\n"
+	    			+ "	 7. Exit\n"
+	    			+ "\n";
+	    	
+	     
+	     assertEquals(expected, tester.checkOutput());
 	    }
 	    
 		
 		 /**
-	     * this test loads the dot file
-	     * and checks if specific edges match
+	     * this test checks if frontend is displaying the list of cities
+	     * and then exiting the program
 	     */
 	    @Test
-	    public void BackendDeveloperCodeReviewForDataWrangler2()
+	    public void BackendDeveloperCodeReviewForFrontendDeveloper2()
 	    {
-	    	Graph<ILocation, Double> graph =  new Graph<>();
+	    	TextUITester tester = new TextUITester("2\nMadison\n7\n");
+			 
+			 Scanner scn = new Scanner(System.in);
+			 
+			 IBackend backend = new Backend();
+			 
+			 IFrontend frontend = new Frontend(backend, scn);
+			 
+			 frontend.runCommandLoop();
+			
+			 String expected = "Welcome to MadMapper\n"
+			     		+ "—--------------------------------------------------\n"
+			     		+ "\n"
+			     		+ "You are in the Main Menu:\n"
+			     		+ "Current Itinerary: Unset -> Unset\n"
+			     		+ "Choose an option:\n"
+			     		+ "	 1. List all cities\n"
+			     		+ "	 2. Set current city\n"
+			     		+ "	 3. Set target city\n"
+			     		+ "	 4. Add stop\n"
+			     		+ "	 5. Find route\n"
+			     		+ "	 6. Reset stops\n"
+			     		+ "	 7. Exit\n"
+			     		+ "\n"
+			     		+ "Enter City:\n"
+			     		+ "\n"
+			     		+ "You are in the Main Menu:\n"
+			     		+ "Current Itinerary: Madison -> Unset\n"
+			     		+ "Choose an option:\n"
+			     		+ "	 1. List all cities\n"
+			     		+ "	 2. Set current city\n"
+			     		+ "	 3. Set target city\n"
+			     		+ "	 4. Add stop\n"
+			     		+ "	 5. Find route\n"
+			     		+ "	 6. Reset stops\n"
+			     		+ "	 7. Exit\n"
+			     		+ "\n";
+			 
 	    	
-	        try {
-	            new LocationLoader(graph).loadLocations("p3dot.dot");
-
-	        } catch (Exception e) {
-
-	        }
-
-	        assertTrue(graph.containsEdge(new Location("Madison"), new Location("Janesville")));
+	    	assertEquals(expected, tester.checkOutput());
 	    }
 
 }
